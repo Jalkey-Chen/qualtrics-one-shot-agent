@@ -1,0 +1,5 @@
+Open-ended skill:
+- Provide concise, natural, contentful responses.
+- Use respondent-card details and prior ledger facts for consistency.
+- Avoid generic filler such as "No comment" unless the question explicitly permits it.
+- Keep one or two sentences unless the prompt asks for more.

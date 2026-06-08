@@ -1,0 +1,176 @@
+<!doctype html>
+<!--
+  PolyPersona-style local mock survey.
+  Tests persona consistency across domains, yes/no, multi-select, short text,
+  numeric input, matrix questions, and cross-page memory.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PolyPersona Style Mock Survey</title>
+  <link rel="stylesheet" href="assets/mock_survey.css">
+</head>
+<body>
+  <main class="survey-shell">
+    <section class="survey-card">
+      <div class="survey-header">
+        <h1 class="survey-title">Multi-Domain Persona Mock Survey</h1>
+        <p class="muted">Local mock survey for consistency and mixed field testing.</p>
+        <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+      </div>
+      <div id="error" class="error-message" role="alert">Please answer every required question on this page.</div>
+
+      <form novalidate>
+        <section class="page active"><div class="question"><p class="question-title">Introduction</p><p>This local mock survey asks about technology, routine, work, consumer choices, and social issues. No data is submitted.</p></div></section>
+
+        <section class="page">
+          <fieldset class="question" data-required-group="tech_comfort">
+            <legend class="required">1. How comfortable are you using new digital tools?</legend>
+            <label class="option"><input type="radio" name="tech_comfort" value="Not comfortable">Not comfortable</label>
+            <label class="option"><input type="radio" name="tech_comfort" value="Slightly comfortable">Slightly comfortable</label>
+            <label class="option"><input type="radio" name="tech_comfort" value="Moderately comfortable">Moderately comfortable</label>
+            <label class="option"><input type="radio" name="tech_comfort" value="Very comfortable">Very comfortable</label>
+            <label class="option"><input type="radio" name="tech_comfort" value="Extremely comfortable">Extremely comfortable</label>
+          </fieldset>
+          <fieldset class="question" data-required-checkbox="weekly_tools">
+            <legend class="required">2. Which of the following do you use at least once a week?</legend>
+            <label class="option"><input type="checkbox" name="weekly_tools" value="Email">Email</label>
+            <label class="option"><input type="checkbox" name="weekly_tools" value="Online banking">Online banking</label>
+            <label class="option"><input type="checkbox" name="weekly_tools" value="Social media">Social media</label>
+            <label class="option"><input type="checkbox" name="weekly_tools" value="Video calls">Video calls</label>
+            <label class="option"><input type="checkbox" name="weekly_tools" value="AI chat tools">AI chat tools</label>
+            <label class="option"><input type="checkbox" name="weekly_tools" value="Online shopping">Online shopping</label>
+          </fieldset>
+          <label class="question"><span class="question-title required">3. In one sentence, describe a technology you find useful.</span><textarea name="useful_technology" required aria-label="Useful technology"></textarea></label>
+        </section>
+
+        <section class="page">
+          <fieldset class="question" data-required-group="exercise">
+            <legend class="required">1. How often do you exercise?</legend>
+            <label class="option"><input type="radio" name="exercise" value="Never">Never</label>
+            <label class="option"><input type="radio" name="exercise" value="Less than once a week">Less than once a week</label>
+            <label class="option"><input type="radio" name="exercise" value="1-2 times per week">1-2 times per week</label>
+            <label class="option"><input type="radio" name="exercise" value="3-4 times per week">3-4 times per week</label>
+            <label class="option"><input type="radio" name="exercise" value="5 or more times per week">5 or more times per week</label>
+          </fieldset>
+          <fieldset class="question" data-required-group="sleep_quality">
+            <legend class="required">2. How would you rate your typical sleep quality?</legend>
+            <label class="option"><input type="radio" name="sleep_quality" value="Very poor">Very poor</label>
+            <label class="option"><input type="radio" name="sleep_quality" value="Poor">Poor</label>
+            <label class="option"><input type="radio" name="sleep_quality" value="Fair">Fair</label>
+            <label class="option"><input type="radio" name="sleep_quality" value="Good">Good</label>
+            <label class="option"><input type="radio" name="sleep_quality" value="Very good">Very good</label>
+          </fieldset>
+          <label class="question"><span class="question-title required">3. About how many hours do you sleep on a typical night?</span><input type="number" name="sleep_hours" min="0" max="12" aria-label="Typical sleep hours" required></label>
+        </section>
+
+        <section class="page">
+          <fieldset class="question" data-required-group="primary_role">
+            <legend class="required">1. Current primary role</legend>
+            <label class="option"><input type="radio" name="primary_role" value="Student">Student</label>
+            <label class="option"><input type="radio" name="primary_role" value="Full-time worker">Full-time worker</label>
+            <label class="option"><input type="radio" name="primary_role" value="Part-time worker">Part-time worker</label>
+            <label class="option"><input type="radio" name="primary_role" value="Caregiver">Caregiver</label>
+            <label class="option"><input type="radio" name="primary_role" value="Retired">Retired</label>
+            <label class="option"><input type="radio" name="primary_role" value="Other">Other</label>
+          </fieldset>
+          <fieldset class="question" data-required-group="career_advancement">
+            <legend class="required">2. How important is career advancement to you right now?</legend>
+            <label class="option"><input type="radio" name="career_advancement" value="Not important">Not important</label>
+            <label class="option"><input type="radio" name="career_advancement" value="Slightly important">Slightly important</label>
+            <label class="option"><input type="radio" name="career_advancement" value="Moderately important">Moderately important</label>
+            <label class="option"><input type="radio" name="career_advancement" value="Very important">Very important</label>
+            <label class="option"><input type="radio" name="career_advancement" value="Extremely important">Extremely important</label>
+          </fieldset>
+          <label class="question"><span class="question-title required">3. What is one skill you would like to improve?</span><input type="text" name="skill_improve" aria-label="Skill to improve" required></label>
+        </section>
+
+        <section class="page">
+          <div class="question">
+            <p class="question-title required">When choosing a product or service, how important are the following?</p>
+            <div class="matrix-wrap"><table class="matrix" data-matrix-required><thead><tr><th>Factor</th><th>Not important</th><th>Slightly important</th><th>Moderately important</th><th>Very important</th><th>Extremely important</th></tr></thead><tbody id="consumerRows"></tbody></table></div>
+          </div>
+        </section>
+
+        <section class="page">
+          <fieldset class="question" data-required-group="community_help">
+            <legend class="required">1. Do you think people in your community generally help each other?</legend>
+            <label class="option"><input type="radio" name="community_help" value="Yes">Yes</label>
+            <label class="option"><input type="radio" name="community_help" value="No">No</label>
+            <label class="option"><input type="radio" name="community_help" value="Not sure">Not sure</label>
+          </fieldset>
+          <fieldset class="question" data-required-group="company_social_impact">
+            <legend class="required">2. Should companies be expected to consider social impact when making business decisions?</legend>
+            <label class="option"><input type="radio" name="company_social_impact" value="Strongly disagree">Strongly disagree</label>
+            <label class="option"><input type="radio" name="company_social_impact" value="Disagree">Disagree</label>
+            <label class="option"><input type="radio" name="company_social_impact" value="Neither agree nor disagree">Neither agree nor disagree</label>
+            <label class="option"><input type="radio" name="company_social_impact" value="Agree">Agree</label>
+            <label class="option"><input type="radio" name="company_social_impact" value="Strongly agree">Strongly agree</label>
+          </fieldset>
+          <label class="question"><span class="question-title required">3. Briefly explain your answer.</span><textarea name="social_impact_explanation" required aria-label="Social impact explanation"></textarea></label>
+        </section>
+
+        <section class="page">
+          <fieldset class="question" data-required-group="tech_relationship">
+            <legend class="required">1. Earlier, you indicated your comfort with technology. In general, how would you describe your relationship with technology?</legend>
+            <label class="option"><input type="radio" name="tech_relationship" value="I avoid most digital tools">I avoid most digital tools</label>
+            <label class="option"><input type="radio" name="tech_relationship" value="I use basic tools when needed">I use basic tools when needed</label>
+            <label class="option"><input type="radio" name="tech_relationship" value="I am comfortable with common tools">I am comfortable with common tools</label>
+            <label class="option"><input type="radio" name="tech_relationship" value="I actively try new tools">I actively try new tools</label>
+          </fieldset>
+          <label class="question"><span class="question-title">2. Is there anything else you would like to add?</span><textarea name="additional_comment" aria-label="Additional comment"></textarea></label>
+        </section>
+
+        <section class="page"><div class="thank-you"><h2>Thank you for completing this mock survey.</h2><p class="muted">This local page did not submit data.</p></div></section>
+
+        <div class="buttons"><button type="button" class="secondary" id="backBtn">Back</button><button type="button" id="nextBtn">Next</button></div>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const factors = ['Price', 'Quality', 'Convenience', 'Environmental impact', 'Recommendations from friends'];
+    const cols = ['Not important', 'Slightly important', 'Moderately important', 'Very important', 'Extremely important'];
+    document.getElementById('consumerRows').innerHTML = factors.map((row, i) => `<tr><td>${row}</td>${cols.map(col => `<td><label><input type="radio" name="consumer_${i}" value="${col}" aria-label="${row} - ${col}">${col}</label></td>`).join('')}</tr>`).join('');
+
+    const pages = Array.from(document.querySelectorAll('.page'));
+    let pageIndex = 0;
+    const error = document.getElementById('error');
+    const progress = document.getElementById('progressBar');
+    const backBtn = document.getElementById('backBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function valid(page) {
+      for (const input of Array.from(page.querySelectorAll('[required]'))) {
+        if (!input.value.trim()) return false;
+      }
+      for (const group of page.querySelectorAll('[data-required-group]')) {
+        if (!page.querySelector(`input[name="${group.dataset.requiredGroup}"]:checked`)) return false;
+      }
+      for (const group of page.querySelectorAll('[data-required-checkbox]')) {
+        if (!page.querySelector(`input[name="${group.dataset.requiredCheckbox}"]:checked`)) return false;
+      }
+      for (const matrix of page.querySelectorAll('[data-matrix-required]')) {
+        const names = new Set(Array.from(matrix.querySelectorAll('input[type="radio"]')).map(input => input.name));
+        for (const name of names) if (!matrix.querySelector(`input[name="${name}"]:checked`)) return false;
+      }
+      return true;
+    }
+    function showPage(index) {
+      pages.forEach((page, i) => page.classList.toggle('active', i === index));
+      error.classList.remove('visible');
+      backBtn.disabled = index === 0 || index === pages.length - 1;
+      nextBtn.textContent = index === pages.length - 2 ? 'Submit' : 'Next';
+      nextBtn.style.display = index === pages.length - 1 ? 'none' : '';
+      progress.style.width = `${Math.min(100, (index / (pages.length - 1)) * 100)}%`;
+    }
+    backBtn.onclick = () => { if (pageIndex > 0) showPage(--pageIndex); };
+    nextBtn.onclick = () => {
+      if (!valid(pages[pageIndex])) { error.textContent = 'Please answer every required question on this page.'; error.classList.add('visible'); return; }
+      showPage(++pageIndex);
+    };
+    showPage(pageIndex);
+  </script>
+</body>
+</html>

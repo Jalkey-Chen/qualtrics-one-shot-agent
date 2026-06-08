@@ -1,0 +1,4 @@
+Unsupported-component skill:
+- If the page asks for CAPTCHA, login, payment, file upload, signature, external identity verification, or a component without a reliable visible input, return STUCK.
+- If a visible option says the respondent cannot complete the unsupported component in this local/authorized test, selecting that option is acceptable.
+- Do not draw signatures, manipulate hidden fields, or use platform-evasion behavior.

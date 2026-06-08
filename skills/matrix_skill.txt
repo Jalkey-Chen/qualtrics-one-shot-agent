@@ -1,0 +1,5 @@
+Matrix skill:
+- Treat each matrix row as a separate question.
+- Return matrix answers as an object mapping visible row text to visible column text.
+- If a row has multi-select checkboxes, return a list of column labels for that row.
+- Answer every visible row unless the page says a row is optional.

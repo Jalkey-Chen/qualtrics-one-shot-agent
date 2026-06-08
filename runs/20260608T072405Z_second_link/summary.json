@@ -1,0 +1,20 @@
+{
+  "run_name": "second_link",
+  "start_time": "2026-06-08T07:24:05.730824+00:00",
+  "end_time": "2026-06-08T07:28:05.634773+00:00",
+  "status": "stuck",
+  "model": "gpt-5.5",
+  "provider": "openai",
+  "run_mode": "practice",
+  "total_pages": 10,
+  "total_llm_calls": 7,
+  "total_captcha_llm_calls": 22,
+  "estimated_cost_usd": null,
+  "stuck_reason": "Validation recovery exceeded retry limit",
+  "final_url": "REDACTED_SURVEY_URL",
+  "url_kind": "external",
+  "pacing_enabled": true,
+  "respondent_card_path": "respondent_card.yaml",
+  "preflight_warnings": [],
+  "notes": "Authorized research run. API keys and official survey URLs are not stored in config."
+}

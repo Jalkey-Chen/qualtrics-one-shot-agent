@@ -1,0 +1,5 @@
+Instruction-following skill:
+- First identify explicit instructions such as "select all", "choose exactly two", "enter the word", "allocate 100", "rank", or "answer every row".
+- Prefer the literal instruction over general preference.
+- If an instruction asks for a specific word or number, preserve it exactly.
+- Do not answer hidden questions or fields.

@@ -1,0 +1,208 @@
+<!doctype html>
+<!--
+  OpinionQA-style local mock survey.
+  Tests multi-page public opinion single choice, demographic consistency,
+  required validation, Next/Back/Submit, progress, and open-ended responses.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpinionQA Style Mock Survey</title>
+  <link rel="stylesheet" href="assets/mock_survey.css">
+</head>
+<body>
+  <main class="survey-shell">
+    <section class="survey-card" aria-label="OpinionQA style mock survey">
+      <div class="survey-header">
+        <h1 class="survey-title">Public Opinion Mock Survey</h1>
+        <p class="muted">Local testing survey. No data is submitted.</p>
+        <div class="progress" aria-label="Progress"><div class="progress-bar" id="progressBar"></div></div>
+      </div>
+
+      <div id="error" class="error-message" role="alert">Please answer every required question on this page.</div>
+
+      <form id="surveyForm" novalidate>
+        <section class="page active" data-page="1">
+          <div class="question">
+            <p class="question-title">Introduction</p>
+            <p>This is a local mock survey for testing an autonomous survey agent. No data is submitted.</p>
+            <label class="option required">
+              <input type="checkbox" name="intro_consent" value="understand" aria-label="I understand this is a local mock survey." required>
+              I understand this is a local mock survey.
+            </label>
+          </div>
+        </section>
+
+        <section class="page" data-page="2">
+          <fieldset class="question" data-required-group="age_group">
+            <legend class="required">1. Age group</legend>
+            <label class="option"><input type="radio" name="age_group" value="18-24">18-24</label>
+            <label class="option"><input type="radio" name="age_group" value="25-34">25-34</label>
+            <label class="option"><input type="radio" name="age_group" value="35-44">35-44</label>
+            <label class="option"><input type="radio" name="age_group" value="45-54">45-54</label>
+            <label class="option"><input type="radio" name="age_group" value="55-64">55-64</label>
+            <label class="option"><input type="radio" name="age_group" value="65 or older">65 or older</label>
+          </fieldset>
+          <fieldset class="question" data-required-group="education">
+            <legend class="required">2. Education</legend>
+            <label class="option"><input type="radio" name="education" value="High school or less">High school or less</label>
+            <label class="option"><input type="radio" name="education" value="Some college">Some college</label>
+            <label class="option"><input type="radio" name="education" value="Bachelor's degree">Bachelor's degree</label>
+            <label class="option"><input type="radio" name="education" value="Graduate degree">Graduate degree</label>
+          </fieldset>
+          <fieldset class="question" data-required-group="political_interest">
+            <legend class="required">3. Political interest</legend>
+            <label class="option"><input type="radio" name="political_interest" value="Not at all interested">Not at all interested</label>
+            <label class="option"><input type="radio" name="political_interest" value="Slightly interested">Slightly interested</label>
+            <label class="option"><input type="radio" name="political_interest" value="Moderately interested">Moderately interested</label>
+            <label class="option"><input type="radio" name="political_interest" value="Very interested">Very interested</label>
+            <label class="option"><input type="radio" name="political_interest" value="Extremely interested">Extremely interested</label>
+          </fieldset>
+        </section>
+
+        <section class="page" data-page="3">
+          <fieldset class="question" data-required-group="living_cost">
+            <legend class="required">1. How concerned are you about the cost of living?</legend>
+            <label class="option"><input type="radio" name="living_cost" value="Not at all concerned">Not at all concerned</label>
+            <label class="option"><input type="radio" name="living_cost" value="Slightly concerned">Slightly concerned</label>
+            <label class="option"><input type="radio" name="living_cost" value="Moderately concerned">Moderately concerned</label>
+            <label class="option"><input type="radio" name="living_cost" value="Very concerned">Very concerned</label>
+          </fieldset>
+          <fieldset class="question" data-required-group="news_confidence">
+            <legend class="required">2. How much confidence do you have in national news organizations?</legend>
+            <label class="option"><input type="radio" name="news_confidence" value="None at all">None at all</label>
+            <label class="option"><input type="radio" name="news_confidence" value="Not very much">Not very much</label>
+            <label class="option"><input type="radio" name="news_confidence" value="A fair amount">A fair amount</label>
+            <label class="option"><input type="radio" name="news_confidence" value="A great deal">A great deal</label>
+          </fieldset>
+          <fieldset class="question" data-required-group="public_transit">
+            <legend class="required">3. Should local governments invest more in public transportation?</legend>
+            <label class="option"><input type="radio" name="public_transit" value="Strongly oppose">Strongly oppose</label>
+            <label class="option"><input type="radio" name="public_transit" value="Somewhat oppose">Somewhat oppose</label>
+            <label class="option"><input type="radio" name="public_transit" value="Somewhat support">Somewhat support</label>
+            <label class="option"><input type="radio" name="public_transit" value="Strongly support">Strongly support</label>
+          </fieldset>
+          <fieldset class="question" data-required-group="political_news">
+            <legend class="required">4. How often do you follow political news?</legend>
+            <label class="option"><input type="radio" name="political_news" value="Never">Never</label>
+            <label class="option"><input type="radio" name="political_news" value="Rarely">Rarely</label>
+            <label class="option"><input type="radio" name="political_news" value="Sometimes">Sometimes</label>
+            <label class="option"><input type="radio" name="political_news" value="Often">Often</label>
+            <label class="option"><input type="radio" name="political_news" value="Very often">Very often</label>
+          </fieldset>
+          <fieldset class="question" data-required-group="technology_life">
+            <legend class="required">5. In general, do you think new technology has made daily life better or worse?</legend>
+            <label class="option"><input type="radio" name="technology_life" value="Much worse">Much worse</label>
+            <label class="option"><input type="radio" name="technology_life" value="Somewhat worse">Somewhat worse</label>
+            <label class="option"><input type="radio" name="technology_life" value="About the same">About the same</label>
+            <label class="option"><input type="radio" name="technology_life" value="Somewhat better">Somewhat better</label>
+            <label class="option"><input type="radio" name="technology_life" value="Much better">Much better</label>
+          </fieldset>
+        </section>
+
+        <section class="page" data-page="4">
+          <fieldset class="question" data-required-group="city_funds">
+            <legend class="required">1. If a city has limited funds, should it prioritize road repair or public transit?</legend>
+            <label class="option"><input type="radio" name="city_funds" value="Road repair">Road repair</label>
+            <label class="option"><input type="radio" name="city_funds" value="Public transit">Public transit</label>
+            <label class="option"><input type="radio" name="city_funds" value="Balance both">Balance both</label>
+          </fieldset>
+          <fieldset class="question" data-required-group="platform_priority">
+            <legend class="required">2. Should online platforms prioritize free expression or reducing harmful content?</legend>
+            <label class="option"><input type="radio" name="platform_priority" value="Free expression">Free expression</label>
+            <label class="option"><input type="radio" name="platform_priority" value="Reducing harmful content">Reducing harmful content</label>
+            <label class="option"><input type="radio" name="platform_priority" value="A balanced approach">A balanced approach</label>
+          </fieldset>
+          <fieldset class="question" data-required-group="school_focus">
+            <legend class="required">3. Should schools focus more on standardized testing or project-based learning?</legend>
+            <label class="option"><input type="radio" name="school_focus" value="Standardized testing">Standardized testing</label>
+            <label class="option"><input type="radio" name="school_focus" value="Project-based learning">Project-based learning</label>
+            <label class="option"><input type="radio" name="school_focus" value="Both equally">Both equally</label>
+          </fieldset>
+          <fieldset class="question" data-required-group="climate_policy">
+            <legend class="required">4. Should government climate policy prioritize consumer incentives or business regulation?</legend>
+            <label class="option"><input type="radio" name="climate_policy" value="Consumer incentives">Consumer incentives</label>
+            <label class="option"><input type="radio" name="climate_policy" value="Business regulation">Business regulation</label>
+            <label class="option"><input type="radio" name="climate_policy" value="A mix of both">A mix of both</label>
+          </fieldset>
+        </section>
+
+        <section class="page" data-page="5">
+          <label class="question">
+            <span class="question-title required">1. In one or two sentences, explain one public issue you think deserves more attention.</span>
+            <textarea name="issue_attention" aria-label="Public issue deserving more attention" required></textarea>
+          </label>
+          <label class="question">
+            <span class="question-title required">2. What is one reason people might disagree with your view?</span>
+            <textarea name="disagree_reason" aria-label="Reason people might disagree" required></textarea>
+          </label>
+        </section>
+
+        <section class="page" data-page="6">
+          <div class="thank-you">
+            <h2>Thank you for completing this mock survey.</h2>
+            <p class="muted">This local page did not submit data to a server.</p>
+          </div>
+        </section>
+
+        <div class="buttons">
+          <button type="button" class="secondary" id="backBtn">Back</button>
+          <button type="button" id="nextBtn">Next</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const pages = Array.from(document.querySelectorAll('.page'));
+    let pageIndex = 0;
+    const error = document.getElementById('error');
+    const progress = document.getElementById('progressBar');
+    const backBtn = document.getElementById('backBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function visibleRequiredValid(page) {
+      const required = Array.from(page.querySelectorAll('[required]'));
+      for (const input of required) {
+        if (input.type === 'checkbox' && !input.checked) return false;
+        if (input.type !== 'checkbox' && !input.value.trim()) return false;
+      }
+      for (const group of page.querySelectorAll('[data-required-group]')) {
+        const name = group.dataset.requiredGroup;
+        if (!page.querySelector(`input[name="${name}"]:checked`)) return false;
+      }
+      return true;
+    }
+
+    function showPage(index) {
+      pages.forEach((page, i) => page.classList.toggle('active', i === index));
+      error.classList.remove('visible');
+      backBtn.disabled = index === 0 || index === pages.length - 1;
+      nextBtn.textContent = index === pages.length - 2 ? 'Submit' : 'Next';
+      nextBtn.style.display = index === pages.length - 1 ? 'none' : '';
+      progress.style.width = `${Math.min(100, (index / (pages.length - 1)) * 100)}%`;
+    }
+
+    backBtn.addEventListener('click', () => {
+      if (pageIndex > 0) {
+        pageIndex -= 1;
+        showPage(pageIndex);
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      const page = pages[pageIndex];
+      if (!visibleRequiredValid(page)) {
+        error.textContent = 'Please answer every required question on this page.';
+        error.classList.add('visible');
+        return;
+      }
+      pageIndex += 1;
+      showPage(pageIndex);
+    });
+
+    showPage(pageIndex);
+  </script>
+</body>
+</html>

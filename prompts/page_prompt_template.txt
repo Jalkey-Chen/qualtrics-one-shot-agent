@@ -1,0 +1,50 @@
+Respondent profile:
+{respondent_profile}
+
+Respondent card:
+{respondent_card}
+
+Structured memory ledger:
+{memory}
+
+Relevant survey skills:
+{skills}
+
+Current page visible text:
+{visible_text}
+
+Detected fields and options:
+{fields_json}
+
+Return a JSON plan using exactly this schema:
+{
+  "status": "answer" | "stuck" | "finished",
+  "stuck_reason": null | "brief reason",
+  "answers": [
+    {
+      "question_id_or_text": "question text",
+      "answer_type": "single_choice" | "multi_choice" | "matrix" | "text" | "number" | "select" | "slider" | "rank",
+      "answer": "answer string, list, or object"
+    }
+  ],
+  "next": "click_next" | "stop",
+  "memory_update": ["brief facts to remember for later consistency"],
+  "memory_patch": {
+    "demographics": {},
+    "preferences": {},
+    "attitudes": {},
+    "examples_given": {},
+    "numeric_answers": {},
+    "open_ended_summaries": {},
+    "uncertainties": {}
+  }
+}
+
+Important:
+- Return only valid JSON.
+- Do not include markdown.
+- Do not include explanations outside JSON.
+- Use "number" for numeric input fields.
+- Use "select" for dropdown fields. For several dropdowns on one page, return a list in visible order or an object mapping row/field text to option text.
+- If visible validation messages are present, answer only the missing or invalid visible questions.
+- Put durable facts into memory_patch using only these keys: demographics, preferences, attitudes, examples_given, numeric_answers, open_ended_summaries, uncertainties.

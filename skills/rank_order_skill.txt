@@ -1,0 +1,5 @@
+Rank-order skill:
+- Return rank answers as an ordered list from most important/highest rank to least important/lowest rank.
+- Do not repeat items.
+- Include every visible required item.
+- If ranks are dropdowns, the first item in the list corresponds to rank 1.

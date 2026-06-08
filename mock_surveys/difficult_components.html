@@ -1,0 +1,143 @@
+<!doctype html>
+<!--
+  Difficult-components local mock survey.
+  Tests long matrix, constrained rank dropdowns, slider plus numeric consistency,
+  and an unsupported signature-like component with an explicit cannot-complete
+  checkbox. Intended for stuck handling, screenshots, and logs.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Difficult Components Mock Survey</title>
+  <link rel="stylesheet" href="assets/mock_survey.css">
+</head>
+<body>
+  <main class="survey-shell">
+    <section class="survey-card">
+      <div class="survey-header">
+        <h1 class="survey-title">Difficult Components Mock Survey</h1>
+        <p class="muted">Local test survey. No data is submitted.</p>
+        <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+      </div>
+      <div id="error" class="error-message" role="alert">Please answer every required question on this page.</div>
+
+      <form novalidate>
+        <section class="page active">
+          <div class="question">
+            <p class="question-title">Introduction</p>
+            <p>This mock survey intentionally includes difficult UI components to test stuck handling.</p>
+          </div>
+        </section>
+
+        <section class="page">
+          <div class="question">
+            <p class="question-title required">Please indicate how much you agree or disagree with each statement.</p>
+            <div class="matrix-wrap">
+              <table class="matrix" data-matrix-required>
+                <thead><tr><th>Statement</th><th>Strongly disagree</th><th>Disagree</th><th>Neither agree nor disagree</th><th>Agree</th><th>Strongly agree</th></tr></thead>
+                <tbody id="longMatrixRows"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="page">
+          <div class="question" data-rank-unique>
+            <p class="question-title required">Rank these priorities from 1 to 5.</p>
+            <div class="rank-row"><label for="rank_cost">Cost</label><select id="rank_cost" name="rank_cost" required aria-label="Cost rank"><option value="">Select rank</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+            <div class="rank-row"><label for="rank_convenience">Convenience</label><select id="rank_convenience" name="rank_convenience" required aria-label="Convenience rank"><option value="">Select rank</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+            <div class="rank-row"><label for="rank_quality">Quality</label><select id="rank_quality" name="rank_quality" required aria-label="Quality rank"><option value="">Select rank</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+            <div class="rank-row"><label for="rank_safety">Safety</label><select id="rank_safety" name="rank_safety" required aria-label="Safety rank"><option value="">Select rank</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+            <div class="rank-row"><label for="rank_environment">Environmental impact</label><select id="rank_environment" name="rank_environment" required aria-label="Environmental impact rank"><option value="">Select rank</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+            <p class="muted">Each rank number must be used once.</p>
+          </div>
+        </section>
+
+        <section class="page">
+          <div class="question">
+            <label class="question-title required" for="rankDifficulty">1. How difficult did you find the previous ranking task?</label>
+            <div class="range-row"><input id="rankDifficulty" type="range" name="rank_difficulty" min="0" max="10" value="5" aria-label="Ranking task difficulty"><output id="rankDifficultyValue">5</output></div>
+          </div>
+          <label class="question"><span class="question-title required">2. Please enter the same number shown on the slider.</span><input type="number" name="rank_difficulty_number" min="0" max="10" aria-label="Same number as slider" required></label>
+        </section>
+
+        <section class="page">
+          <div class="question">
+            <p class="question-title required">Please sign in the box below.</p>
+            <div class="signature-box" aria-label="Signature box mock-up">Signature box mock-up</div>
+            <p class="muted">This is not a real signature field. It is a local unsupported-component mock.</p>
+            <label class="option required"><input type="checkbox" name="cannot_complete_signature" value="cannot complete signature field" required aria-label="I cannot complete this signature field in this automated local test.">I cannot complete this signature field in this automated local test.</label>
+          </div>
+        </section>
+
+        <section class="page"><div class="thank-you"><h2>Thank you for completing this mock survey.</h2><p class="muted">This local page did not submit data.</p></div></section>
+
+        <div class="buttons"><button type="button" class="secondary" id="backBtn">Back</button><button type="button" id="nextBtn">Next</button></div>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const rows = [
+      'I prefer clear instructions.',
+      'I enjoy solving new problems.',
+      'I often compare options before deciding.',
+      'I find long forms tiring.',
+      'I like trying new technologies.',
+      'I pay attention to details.',
+      'I sometimes change my mind after reading more.',
+      'I prefer short explanations.',
+      'I value privacy online.',
+      'I am comfortable making estimates.'
+    ];
+    const cols = ['Strongly disagree', 'Disagree', 'Neither agree nor disagree', 'Agree', 'Strongly agree'];
+    document.getElementById('longMatrixRows').innerHTML = rows.map((row, i) => `<tr><td>${row}</td>${cols.map(col => `<td><label><input type="radio" name="long_${i}" value="${col}" aria-label="${row} - ${col}">${col}</label></td>`).join('')}</tr>`).join('');
+
+    const pages = Array.from(document.querySelectorAll('.page'));
+    let pageIndex = 0;
+    const error = document.getElementById('error');
+    const progress = document.getElementById('progressBar');
+    const backBtn = document.getElementById('backBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const slider = document.getElementById('rankDifficulty');
+    slider.addEventListener('input', () => document.getElementById('rankDifficultyValue').textContent = slider.value);
+
+    function valid(page) {
+      for (const input of Array.from(page.querySelectorAll('[required]'))) {
+        if (input.type === 'checkbox' && !input.checked) return false;
+        if (input.type !== 'checkbox' && !String(input.value).trim()) return false;
+      }
+      for (const matrix of page.querySelectorAll('[data-matrix-required]')) {
+        const names = new Set(Array.from(matrix.querySelectorAll('input[type="radio"]')).map(input => input.name));
+        for (const name of names) if (!matrix.querySelector(`input[name="${name}"]:checked`)) return false;
+      }
+      for (const rank of page.querySelectorAll('[data-rank-unique]')) {
+        const values = Array.from(rank.querySelectorAll('select')).map(select => select.value);
+        if (values.some(value => !value)) return false;
+        if (new Set(values).size !== values.length) {
+          error.textContent = 'Please use each rank exactly once.';
+          return false;
+        }
+      }
+      error.textContent = 'Please answer every required question on this page.';
+      return true;
+    }
+
+    function showPage(index) {
+      pages.forEach((page, i) => page.classList.toggle('active', i === index));
+      error.classList.remove('visible');
+      backBtn.disabled = index === 0 || index === pages.length - 1;
+      nextBtn.textContent = index === pages.length - 2 ? 'Submit' : 'Next';
+      nextBtn.style.display = index === pages.length - 1 ? 'none' : '';
+      progress.style.width = `${Math.min(100, (index / (pages.length - 1)) * 100)}%`;
+    }
+    backBtn.onclick = () => { if (pageIndex > 0) showPage(--pageIndex); };
+    nextBtn.onclick = () => {
+      if (!valid(pages[pageIndex])) { error.classList.add('visible'); return; }
+      showPage(++pageIndex);
+    };
+    showPage(pageIndex);
+  </script>
+</body>
+</html>

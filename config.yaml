@@ -1,0 +1,34 @@
+provider: openai
+model: gpt-5.5
+temperature: 1.0
+max_pages: 80
+headed: true
+slow_mo_ms: 100
+page_timeout_ms: 30000
+run_mode: practice
+respondent_card_path: respondent_card.yaml
+
+pacing:
+  enabled: true
+  base_page_delay_seconds: 1.0
+  per_100_words_delay_seconds: 1.5
+  per_question_delay_seconds: 0.6
+  matrix_row_delay_seconds: 0.25
+  open_ended_delay_seconds: 2.0
+  validation_recovery_delay_seconds: 1.5
+  action_interval_seconds: 0.35
+  max_page_delay_seconds: 12.0
+
+captcha:
+  enabled: true
+  model: gpt-5.5
+  max_attempts: 3
+  solve_timeout_ms: 15000
+
+respondent_profile:
+  age_range: "adult"
+  location: "United States"
+  education: "college educated"
+  technology_familiarity: "moderate"
+  response_style: "concise, consistent, and careful"
+  general_instruction: "Follow survey instructions carefully and answer consistently according to this profile."

@@ -1,0 +1,5 @@
+Validation-recovery skill:
+- If validation text is visible, focus only on missing or invalid visible questions.
+- Do not skip required questions.
+- Do not click through unanswered-question reminders unless the survey explicitly says skipping is acceptable and no visible answer can be provided.
+- Preserve already valid answers.

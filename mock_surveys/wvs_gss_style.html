@@ -1,0 +1,192 @@
+<!doctype html>
+<!--
+  WVS/GSS-style local mock survey.
+  Tests life satisfaction scale, trust/value questions, Likert matrices,
+  dropdowns, demographics, validation, and open-ended explanation.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WVS GSS Style Mock Survey</title>
+  <link rel="stylesheet" href="assets/mock_survey.css">
+</head>
+<body>
+  <main class="survey-shell">
+    <section class="survey-card">
+      <div class="survey-header">
+        <h1 class="survey-title">Values and Society Mock Survey</h1>
+        <p class="muted">Local mock survey for parser and matrix testing. No data is submitted.</p>
+        <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+      </div>
+      <div id="error" class="error-message" role="alert">Please answer every required question on this page.</div>
+      <form novalidate>
+        <section class="page active">
+          <div class="question">
+            <p class="question-title">Introduction</p>
+            <p>This is a local mock survey about values, trust, and society. It is only for agent debugging.</p>
+          </div>
+        </section>
+
+        <section class="page">
+          <fieldset class="question" data-required-group="life_satisfaction">
+            <legend class="required">1. Overall, how satisfied are you with your life these days?</legend>
+            <div class="likert-row">
+              <label class="option"><input type="radio" name="life_satisfaction" value="1 Very dissatisfied">1 Very dissatisfied</label>
+              <label class="option"><input type="radio" name="life_satisfaction" value="2">2</label>
+              <label class="option"><input type="radio" name="life_satisfaction" value="3">3</label>
+              <label class="option"><input type="radio" name="life_satisfaction" value="4">4</label>
+              <label class="option"><input type="radio" name="life_satisfaction" value="5">5</label>
+              <label class="option"><input type="radio" name="life_satisfaction" value="6">6</label>
+              <label class="option"><input type="radio" name="life_satisfaction" value="7">7</label>
+              <label class="option"><input type="radio" name="life_satisfaction" value="8">8</label>
+              <label class="option"><input type="radio" name="life_satisfaction" value="9">9</label>
+              <label class="option"><input type="radio" name="life_satisfaction" value="10 Very satisfied">10 Very satisfied</label>
+            </div>
+          </fieldset>
+          <fieldset class="question" data-required-group="general_trust">
+            <legend class="required">2. Generally speaking, would you say that most people can be trusted?</legend>
+            <label class="option"><input type="radio" name="general_trust" value="Most people can be trusted">Most people can be trusted</label>
+            <label class="option"><input type="radio" name="general_trust" value="Need to be very careful">Need to be very careful</label>
+            <label class="option"><input type="radio" name="general_trust" value="Not sure">Not sure</label>
+          </fieldset>
+          <fieldset class="question" data-required-group="public_issues_talk">
+            <legend class="required">3. How often do you talk with friends or family about public issues?</legend>
+            <label class="option"><input type="radio" name="public_issues_talk" value="Never">Never</label>
+            <label class="option"><input type="radio" name="public_issues_talk" value="Rarely">Rarely</label>
+            <label class="option"><input type="radio" name="public_issues_talk" value="Sometimes">Sometimes</label>
+            <label class="option"><input type="radio" name="public_issues_talk" value="Often">Often</label>
+            <label class="option"><input type="radio" name="public_issues_talk" value="Very often">Very often</label>
+          </fieldset>
+        </section>
+
+        <section class="page">
+          <div class="question matrix-question">
+            <p class="question-title required">How much confidence do you have in each of the following institutions?</p>
+            <div class="matrix-wrap">
+              <table class="matrix" data-matrix-required>
+                <thead><tr><th>Institution</th><th>None at all</th><th>Not very much</th><th>Quite a lot</th><th>A great deal</th></tr></thead>
+                <tbody id="trustRows"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="page">
+          <div class="question matrix-question">
+            <p class="question-title required">Please indicate how much you agree or disagree with each statement.</p>
+            <div class="matrix-wrap">
+              <table class="matrix" data-matrix-required>
+                <thead><tr><th>Statement</th><th>Strongly disagree</th><th>Disagree</th><th>Neither agree nor disagree</th><th>Agree</th><th>Strongly agree</th></tr></thead>
+                <tbody id="agreeRows"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="page">
+          <label class="question">
+            <span class="question-title required">1. Employment status</span>
+            <select name="employment_status" aria-label="Employment status" required>
+              <option value="">Select one</option>
+              <option>Student</option>
+              <option>Employed full-time</option>
+              <option>Employed part-time</option>
+              <option>Self-employed</option>
+              <option>Not currently employed</option>
+              <option>Retired</option>
+            </select>
+          </label>
+          <fieldset class="question" data-required-group="urbanicity">
+            <legend class="required">2. Urbanicity</legend>
+            <label class="option"><input type="radio" name="urbanicity" value="Urban">Urban</label>
+            <label class="option"><input type="radio" name="urbanicity" value="Suburban">Suburban</label>
+            <label class="option"><input type="radio" name="urbanicity" value="Small town">Small town</label>
+            <label class="option"><input type="radio" name="urbanicity" value="Rural">Rural</label>
+          </fieldset>
+          <fieldset class="question" data-required-group="financial_situation">
+            <legend class="required">3. Household financial situation</legend>
+            <label class="option"><input type="radio" name="financial_situation" value="Living comfortably">Living comfortably</label>
+            <label class="option"><input type="radio" name="financial_situation" value="Doing okay">Doing okay</label>
+            <label class="option"><input type="radio" name="financial_situation" value="Just getting by">Just getting by</label>
+            <label class="option"><input type="radio" name="financial_situation" value="Finding it difficult">Finding it difficult</label>
+          </fieldset>
+        </section>
+
+        <section class="page">
+          <label class="question"><span class="question-title required">1. What is one value that is important to you when thinking about society?</span><textarea name="important_value" required aria-label="Important social value"></textarea></label>
+          <label class="question"><span class="question-title required">2. Please briefly explain why.</span><textarea name="important_value_reason" required aria-label="Value explanation"></textarea></label>
+        </section>
+
+        <section class="page">
+          <div class="thank-you"><h2>Thank you for completing this mock survey.</h2><p class="muted">This local page did not submit data.</p></div>
+        </section>
+
+        <div class="buttons"><button type="button" class="secondary" id="backBtn">Back</button><button type="button" id="nextBtn">Next</button></div>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const trustRows = ['Local government', 'National government', 'Universities', 'Scientists', 'News media', 'Courts'];
+    const trustCols = ['None at all', 'Not very much', 'Quite a lot', 'A great deal'];
+    const agreeRows = [
+      'People should be able to express unpopular opinions.',
+      'Economic growth is more important than reducing inequality.',
+      'Government should do more to help people in need.',
+      'New technology usually creates more opportunities than problems.',
+      'Environmental protection is worth some economic cost.'
+    ];
+    const agreeCols = ['Strongly disagree', 'Disagree', 'Neither agree nor disagree', 'Agree', 'Strongly agree'];
+
+    function renderMatrix(tbodyId, rowTexts, colTexts, prefix) {
+      const tbody = document.getElementById(tbodyId);
+      tbody.innerHTML = rowTexts.map((row, i) => `<tr><td>${row}</td>${colTexts.map(col => `<td><label><input type="radio" name="${prefix}_${i}" value="${col}" aria-label="${row} - ${col}"><span class="muted">${col}</span></label></td>`).join('')}</tr>`).join('');
+    }
+    renderMatrix('trustRows', trustRows, trustCols, 'trust');
+    renderMatrix('agreeRows', agreeRows, agreeCols, 'agree');
+
+    const pages = Array.from(document.querySelectorAll('.page'));
+    let pageIndex = 0;
+    const error = document.getElementById('error');
+    const progress = document.getElementById('progressBar');
+    const backBtn = document.getElementById('backBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function valid(page) {
+      for (const input of Array.from(page.querySelectorAll('[required]'))) {
+        if (!input.value.trim()) return false;
+      }
+      for (const group of page.querySelectorAll('[data-required-group]')) {
+        if (!page.querySelector(`input[name="${group.dataset.requiredGroup}"]:checked`)) return false;
+      }
+      for (const matrix of page.querySelectorAll('[data-matrix-required]')) {
+        const names = new Set(Array.from(matrix.querySelectorAll('input[type="radio"]')).map(input => input.name));
+        for (const name of names) {
+          if (!matrix.querySelector(`input[name="${name}"]:checked`)) {
+            error.textContent = 'Please answer every row in the matrix.';
+            return false;
+          }
+        }
+      }
+      error.textContent = 'Please answer every required question on this page.';
+      return true;
+    }
+
+    function showPage(index) {
+      pages.forEach((page, i) => page.classList.toggle('active', i === index));
+      error.classList.remove('visible');
+      backBtn.disabled = index === 0 || index === pages.length - 1;
+      nextBtn.textContent = index === pages.length - 2 ? 'Submit' : 'Next';
+      nextBtn.style.display = index === pages.length - 1 ? 'none' : '';
+      progress.style.width = `${Math.min(100, (index / (pages.length - 1)) * 100)}%`;
+    }
+    backBtn.onclick = () => { if (pageIndex > 0) showPage(--pageIndex); };
+    nextBtn.onclick = () => {
+      if (!valid(pages[pageIndex])) { error.classList.add('visible'); return; }
+      showPage(++pageIndex);
+    };
+    showPage(pageIndex);
+  </script>
+</body>
+</html>

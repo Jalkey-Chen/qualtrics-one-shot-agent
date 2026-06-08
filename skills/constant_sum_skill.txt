@@ -1,0 +1,5 @@
+Constant-sum skill:
+- For allocation questions, identify the required total, usually 100.
+- Return a numeric object mapping each visible row label to a number.
+- Do not include calculated or display-only Total fields unless the page clearly asks the respondent to fill them.
+- Ensure the numbers sum to the target total.

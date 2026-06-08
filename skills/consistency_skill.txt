@@ -1,0 +1,4 @@
+Consistency skill:
+- Keep demographics, examples, numeric answers, and stated preferences consistent with the respondent card and ledger.
+- Reuse examples already given when a later page asks for a related detail.
+- If a later question asks for a summary or consistency check, align with the earlier answer rather than inventing a new persona.

@@ -1,0 +1,198 @@
+<!doctype html>
+<!--
+  Qualtrics-like mixed local mock survey.
+  Tests block-like sections, deterministic display logic, visible-only required
+  validation, hidden embedded-data-like state that the agent should ignore,
+  matrix plus textarea, side-by-side dropdowns, slider, and mixed components.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Qualtrics-like Mixed Mock Survey</title>
+  <link rel="stylesheet" href="assets/mock_survey.css">
+</head>
+<body>
+  <main class="survey-shell">
+    <section class="survey-card">
+      <div class="survey-header">
+        <h1 class="survey-title">Qualtrics-like Mixed Mock Survey</h1>
+        <p class="muted">Local HTML only. This form does not submit data.</p>
+        <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+      </div>
+      <div id="error" class="error-message" role="alert">Please answer every visible required question on this page.</div>
+      <input type="hidden" name="mock_embedded_state" value="local-debug-only">
+
+      <form novalidate>
+        <section class="page active">
+          <div class="question">
+            <p class="question-title">Welcome</p>
+            <p>This local survey mixes common Qualtrics-like components for debugging.</p>
+            <label class="option required"><input type="checkbox" name="ready" value="ready" required aria-label="I am ready to begin.">I am ready to begin.</label>
+          </div>
+        </section>
+
+        <section class="page">
+          <fieldset class="question" data-required-group="located_us">
+            <legend class="required">1. Are you currently located in the United States?</legend>
+            <label class="option"><input type="radio" name="located_us" value="Yes">Yes</label>
+            <label class="option"><input type="radio" name="located_us" value="No">No</label>
+            <label class="option"><input type="radio" name="located_us" value="Prefer not to say">Prefer not to say</label>
+          </fieldset>
+          <fieldset class="question" data-required-group="adult">
+            <legend class="required">2. Are you 18 years of age or older?</legend>
+            <label class="option"><input type="radio" name="adult" value="Yes">Yes</label>
+            <label class="option"><input type="radio" name="adult" value="No">No</label>
+            <label class="option"><input type="radio" name="adult" value="Prefer not to say">Prefer not to say</label>
+          </fieldset>
+        </section>
+
+        <section class="page">
+          <fieldset class="question" data-required-group="online_news">
+            <legend class="required">1. How often do you read news online?</legend>
+            <label class="option"><input type="radio" name="online_news" value="Never">Never</label>
+            <label class="option"><input type="radio" name="online_news" value="Less than once a week">Less than once a week</label>
+            <label class="option"><input type="radio" name="online_news" value="A few times a week">A few times a week</label>
+            <label class="option"><input type="radio" name="online_news" value="Daily">Daily</label>
+            <label class="option"><input type="radio" name="online_news" value="Several times a day">Several times a day</label>
+          </fieldset>
+          <fieldset class="question" data-required-checkbox="info_sources">
+            <legend class="required">2. Which sources do you use for information?</legend>
+            <label class="option"><input type="checkbox" name="info_sources" value="National newspapers">National newspapers</label>
+            <label class="option"><input type="checkbox" name="info_sources" value="Local news">Local news</label>
+            <label class="option"><input type="checkbox" name="info_sources" value="Television">Television</label>
+            <label class="option"><input type="checkbox" name="info_sources" value="Podcasts">Podcasts</label>
+            <label class="option"><input type="checkbox" name="info_sources" value="Social media">Social media</label>
+            <label class="option"><input type="checkbox" name="info_sources" value="Friends or family">Friends or family</label>
+            <label class="option"><input type="checkbox" name="info_sources" value="Search engines">Search engines</label>
+          </fieldset>
+          <label class="question"><span class="question-title required">3. What makes a source of information trustworthy to you?</span><textarea name="trustworthy_source" required aria-label="Trustworthy information source"></textarea></label>
+        </section>
+
+        <section class="page">
+          <fieldset class="question" data-required-group="uses_social_media">
+            <legend class="required">1. Do you use social media?</legend>
+            <label class="option"><input type="radio" name="uses_social_media" value="Yes">Yes</label>
+            <label class="option"><input type="radio" name="uses_social_media" value="No">No</label>
+          </fieldset>
+          <fieldset id="socialYes" class="question hidden" data-required-checkbox="platforms">
+            <legend class="required">Which platforms do you use?</legend>
+            <label class="option"><input type="checkbox" name="platforms" value="Instagram">Instagram</label>
+            <label class="option"><input type="checkbox" name="platforms" value="TikTok">TikTok</label>
+            <label class="option"><input type="checkbox" name="platforms" value="X/Twitter">X/Twitter</label>
+            <label class="option"><input type="checkbox" name="platforms" value="Facebook">Facebook</label>
+            <label class="option"><input type="checkbox" name="platforms" value="Reddit">Reddit</label>
+            <label class="option"><input type="checkbox" name="platforms" value="LinkedIn">LinkedIn</label>
+            <label class="option"><input type="checkbox" name="platforms" value="Other">Other</label>
+          </fieldset>
+          <fieldset id="socialNo" class="question hidden" data-required-group="no_social_reason">
+            <legend class="required">What is the main reason you do not use social media?</legend>
+            <label class="option"><input type="radio" name="no_social_reason" value="Privacy concerns">Privacy concerns</label>
+            <label class="option"><input type="radio" name="no_social_reason" value="Not interested">Not interested</label>
+            <label class="option"><input type="radio" name="no_social_reason" value="Too time-consuming">Too time-consuming</label>
+            <label class="option"><input type="radio" name="no_social_reason" value="Prefer other communication">Prefer other communication</label>
+            <label class="option"><input type="radio" name="no_social_reason" value="Other">Other</label>
+          </fieldset>
+        </section>
+
+        <section class="page">
+          <div class="question">
+            <p class="question-title required">How much do you agree with the following statements about online platforms?</p>
+            <div class="matrix-wrap"><table class="matrix" data-matrix-required><thead><tr><th>Statement</th><th>Strongly disagree</th><th>Disagree</th><th>Neither agree nor disagree</th><th>Agree</th><th>Strongly agree</th></tr></thead><tbody id="platformRows"></tbody></table></div>
+          </div>
+          <label class="question"><span class="question-title required">What is one concern you have about online platforms?</span><textarea name="platform_concern" required aria-label="Platform concern"></textarea></label>
+        </section>
+
+        <section class="page">
+          <div class="question">
+            <p class="question-title required">Please evaluate the following services.</p>
+            <div class="matrix-wrap">
+              <table class="matrix side-by-side">
+                <thead><tr><th>Service</th><th>Familiarity</th><th>Satisfaction</th></tr></thead>
+                <tbody>
+                  <tr><td>Public transportation</td><td><select name="public_transportation_familiarity" required aria-label="Public transportation familiarity"><option value="">Select</option><option>Not familiar</option><option>Somewhat familiar</option><option>Very familiar</option></select></td><td><select name="public_transportation_satisfaction" required aria-label="Public transportation satisfaction"><option value="">Select</option><option>Low</option><option>Medium</option><option>High</option></select></td></tr>
+                  <tr><td>Public libraries</td><td><select name="public_libraries_familiarity" required aria-label="Public libraries familiarity"><option value="">Select</option><option>Not familiar</option><option>Somewhat familiar</option><option>Very familiar</option></select></td><td><select name="public_libraries_satisfaction" required aria-label="Public libraries satisfaction"><option value="">Select</option><option>Low</option><option>Medium</option><option>High</option></select></td></tr>
+                  <tr><td>Online government services</td><td><select name="online_government_familiarity" required aria-label="Online government services familiarity"><option value="">Select</option><option>Not familiar</option><option>Somewhat familiar</option><option>Very familiar</option></select></td><td><select name="online_government_satisfaction" required aria-label="Online government services satisfaction"><option value="">Select</option><option>Low</option><option>Medium</option><option>High</option></select></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="page">
+          <div class="question">
+            <label class="question-title required" for="optimism">On a scale from 0 to 100, how optimistic are you about the next five years?</label>
+            <div class="range-row"><input id="optimism" type="range" name="optimism" min="0" max="100" value="50" aria-label="Optimism about next five years"><output id="optimismValue">50</output></div>
+          </div>
+          <label class="question"><span class="question-title required">Why did you choose this rating?</span><textarea name="optimism_reason" required aria-label="Optimism rating explanation"></textarea></label>
+        </section>
+
+        <section class="page">
+          <label class="question"><span class="question-title required">1. What was the easiest part of this survey to answer?</span><textarea name="easy_part" required aria-label="Easiest part"></textarea></label>
+          <label class="question"><span class="question-title required">2. What was the hardest part?</span><textarea name="hard_part" required aria-label="Hardest part"></textarea></label>
+        </section>
+
+        <section class="page"><div class="thank-you"><h2>Thank you for completing this mock survey.</h2><p class="muted">This local page did not submit data.</p></div></section>
+
+        <div class="buttons"><button type="button" class="secondary" id="backBtn">Back</button><button type="button" id="nextBtn">Next</button></div>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const statements = ['Platforms should label AI-generated content.', 'Users should have more control over recommendation algorithms.', 'Platforms should remove clearly false information.', 'People should be able to appeal moderation decisions.'];
+    const cols = ['Strongly disagree', 'Disagree', 'Neither agree nor disagree', 'Agree', 'Strongly agree'];
+    document.getElementById('platformRows').innerHTML = statements.map((row, i) => `<tr><td>${row}</td>${cols.map(col => `<td><label><input type="radio" name="platform_${i}" value="${col}" aria-label="${row} - ${col}">${col}</label></td>`).join('')}</tr>`).join('');
+
+    const pages = Array.from(document.querySelectorAll('.page'));
+    let pageIndex = 0;
+    const error = document.getElementById('error');
+    const progress = document.getElementById('progressBar');
+    const backBtn = document.getElementById('backBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const optimism = document.getElementById('optimism');
+    optimism.addEventListener('input', () => document.getElementById('optimismValue').textContent = optimism.value);
+
+    document.querySelectorAll('input[name="uses_social_media"]').forEach(input => input.addEventListener('change', updateDisplayLogic));
+    function updateDisplayLogic() {
+      const value = document.querySelector('input[name="uses_social_media"]:checked')?.value;
+      document.getElementById('socialYes').classList.toggle('hidden', value !== 'Yes');
+      document.getElementById('socialNo').classList.toggle('hidden', value !== 'No');
+    }
+
+    function isVisible(el) { return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length); }
+    function valid(page) {
+      for (const input of Array.from(page.querySelectorAll('[required]')).filter(isVisible)) {
+        if (input.type === 'checkbox' && !input.checked) return false;
+        if (input.type !== 'checkbox' && !String(input.value).trim()) return false;
+      }
+      for (const group of Array.from(page.querySelectorAll('[data-required-group]')).filter(isVisible)) {
+        if (!page.querySelector(`input[name="${group.dataset.requiredGroup}"]:checked`)) return false;
+      }
+      for (const group of Array.from(page.querySelectorAll('[data-required-checkbox]')).filter(isVisible)) {
+        if (!page.querySelector(`input[name="${group.dataset.requiredCheckbox}"]:checked`)) return false;
+      }
+      for (const matrix of page.querySelectorAll('[data-matrix-required]')) {
+        const names = new Set(Array.from(matrix.querySelectorAll('input[type="radio"]')).map(input => input.name));
+        for (const name of names) if (!matrix.querySelector(`input[name="${name}"]:checked`)) return false;
+      }
+      return true;
+    }
+    function showPage(index) {
+      pages.forEach((page, i) => page.classList.toggle('active', i === index));
+      error.classList.remove('visible');
+      backBtn.disabled = index === 0 || index === pages.length - 1;
+      nextBtn.textContent = index === pages.length - 2 ? 'Submit' : 'Next';
+      nextBtn.style.display = index === pages.length - 1 ? 'none' : '';
+      progress.style.width = `${Math.min(100, (index / (pages.length - 1)) * 100)}%`;
+    }
+    backBtn.onclick = () => { if (pageIndex > 0) showPage(--pageIndex); };
+    nextBtn.onclick = () => {
+      updateDisplayLogic();
+      if (!valid(pages[pageIndex])) { error.textContent = 'Please answer every visible required question on this page.'; error.classList.add('visible'); return; }
+      showPage(++pageIndex);
+    };
+    showPage(pageIndex);
+  </script>
+</body>
+</html>
